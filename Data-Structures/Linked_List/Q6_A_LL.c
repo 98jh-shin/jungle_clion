@@ -6,6 +6,7 @@ Purpose: Implementing the required functions for Question 6 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -88,7 +89,29 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
+	if (*ptrHead == NULL || (*ptrHead)->next == NULL) return 0;
+
+	ListNode *cur = *ptrHead;
+	ListNode *maxNode = cur; // 최대값 노드를 가리킬 포인터
+	ListNode *preOfMax = NULL; // 최댓값 노드의 이전 노드를 가리킬 포인터
+	int max = cur->item;
+
+	while (cur->next != NULL) {
+		if (cur->next->item > max) {
+			max = cur->next->item;
+			preOfMax = cur;
+			maxNode = cur->next;
+		}
+		cur = cur->next;
+	}
+
+	if (preOfMax != NULL) { // NULL이라면 최대값이 맨 앞이므로 함수 종료
+		preOfMax->next = maxNode->next; // 최대값 노드를 분리
+		maxNode->next = *ptrHead; // 최대값 노드가 원래 head를 next로
+		*ptrHead = maxNode; // 리스트의 head를 최대값 노드로 변경
+	}
+
+	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

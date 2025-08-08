@@ -85,9 +85,18 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 
-void RecursiveReverse(ListNode **ptrHead)
-{
-	/* add your code here */
+void RecursiveReverse(ListNode **ptrHead){
+	// if (*ptrHead == NULL || (*ptrHead)->next == NULL) return;
+	// RecursiveReverse(&(*ptrHead)->next);
+	// (*ptrHead)->next->next = (*ptrHead);
+	// (*ptrHead)->next = NULL;
+	if (*ptrHead == NULL || (*ptrHead)->next == NULL) return; // 마지막까지 갔다면
+	ListNode *first = *ptrHead; // 나 저장
+	ListNode *rest = first->next; // 나 다음 리스트 저장
+	RecursiveReverse(&rest); // 나 다음 리스트 거꾸로
+	first->next->next = first; // 마지막 깊이의 first->next = 마지막 노드 , 마지막 노드가 마지막 전 노드를 가리킴
+	first->next = NULL; // 새로운 리스트의 마지막은 나임 나의 다음은 없음
+	*ptrHead = rest; // 이제부터 새로운 리스트의 *ptrhead 는 rest를 가리킴
 }
 
 //////////////////////////////////////////////////////////////////////////////////

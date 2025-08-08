@@ -34,6 +34,7 @@ void removeAllItems(LinkedList *ll);
 ListNode *findNode(LinkedList *ll, int index);
 int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
+int insertSortedLL(LinkedList *ll, int item);
 
 
 //////////////////////////// main() //////////////////////////////////////////////
@@ -106,7 +107,6 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
     if (ll1 == NULL || ll2 == NULL || ll1->head == NULL  || ll2->head == NULL) return;
     ListNode *cur1 = ll1->head;
 	ListNode *cur2 = ll2->head;
-
     while (cur1 != NULL && cur2 != NULL) {
 		// 미리 다음 노드들 설정
 		ListNode *tmp1 = cur1->next;
@@ -246,4 +246,46 @@ int removeNode(LinkedList *ll, int index){
 	}
 
 	return -1;
+}
+
+int insertSortedLL(LinkedList *ll, int item)
+{
+    ListNode *pre = NULL;
+    ListNode *cur = ll->head;
+    int index = 0;
+
+    // 1. [탐색] - 삽입할 위치를 찾는 단일 루프
+    // 이 루프 하나로 맨 앞, 중간, 맨 뒤 모든 위치를 찾습니다.
+    while (cur != NULL && cur->item < item)
+    {
+        pre = cur;
+        cur = cur->next;
+        index++;
+    }
+
+    // 2. [검사] - 중복 값 확인
+    // 루프가 끝난 직후, 현재 위치(cur)가 삽입할 값과 같은지 확인합니다.
+    if (cur != NULL && cur->item == item)
+    {
+        return -1; // 중복이므로 아무것도 하지 않고 종료
+    }
+
+    // 3. [실행] - 노드 생성 및 삽입
+    // 중복이 아님이 확인되었으므로, 안전하게 노드를 생성합니다.
+    ListNode *newNode = malloc(sizeof(ListNode));
+    newNode->item = item;
+    
+    // 새 노드의 다음은 항상 현재 cur가 가리키는 곳입니다.
+    // (맨 뒤에 삽입 시 cur는 NULL이므로, newNode->next는 NULL이 되어 올바르게 동작합니다)
+    newNode->next = cur;
+
+    // `pre` 포인터 하나로 맨 앞과 중간 삽입을 모두 처리합니다.
+    if (pre == NULL) { // index가 0일 때, 즉 맨 앞에 삽입하는 경우
+        ll->head = newNode;
+    } else { // 중간이나 맨 뒤에 삽입하는 경우
+        pre->next = newNode;
+    }
+
+    ll->size++;
+    return index;
 }

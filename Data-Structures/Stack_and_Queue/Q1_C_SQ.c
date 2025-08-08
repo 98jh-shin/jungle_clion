@@ -117,6 +117,9 @@ int main()
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
 	/* add your code here */
+	for(i = 0; i < ll->size; i++)
+{
+	}
 }
 
 void removeOddValues(Queue *q)

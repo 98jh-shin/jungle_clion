@@ -86,6 +86,8 @@ int main() {
 //////////////////////////////////////////////////////////////////////////////////
 
 void preOrderIterative(BSTNode* root) {
+    if (root == NULL) return;
+
     Stack* stack = malloc(sizeof(Stack));
     if (stack == NULL) return;
     stack->top = NULL;

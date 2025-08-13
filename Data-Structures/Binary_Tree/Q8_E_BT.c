@@ -100,6 +100,13 @@ int hasGreatGrandchild(BTNode* node) {
     int current_height = ((left_height > right_height) ? left_height : right_height) + 1;
     return current_height;
 }
+
+
+
+
+
+
+
 /*
 BT 8번 문제는 증손자 노드를 가지고 있는, 높이가 3이상인 노드를 출력하는 문제입니다.
 이 함수를 후위 순회 방식과 재귀를 이용하여 풀었습니다. 함수 반환 값으로는 현재 노드를 루트로 하는 서브트리의 높이를 반환합니다.

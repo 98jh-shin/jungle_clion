@@ -96,7 +96,7 @@ void moveOddItemsToBack(LinkedList *ll)
 	ListNode *pre = NULL;
 
 	for (int i = 0; i < ll->size; i++) {
-		if (!(cur->item % 2)) {
+		if ((cur->item % 2)) {
 			if (cur == tail) break;
 			ListNode *temp = cur;
 			cur = cur->next;

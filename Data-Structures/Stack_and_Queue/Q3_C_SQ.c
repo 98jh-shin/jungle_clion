@@ -85,6 +85,7 @@ int main()
             else{
                 printf("The stack is not pairwise consecutive.\n");
             }
+			printList(&(s.ll));
             removeAllItems(&(s.ll));
             break;
 		case 0:
@@ -103,7 +104,36 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	if (s->ll.size % 2) {
+		return 0;
+	}
+    Stack tempStack;
+	tempStack.ll.head = NULL;
+	tempStack.ll.size = 0;
+	tempStack.ll.tail = NULL;
+
+	int val1 = 0;
+	int val2 = 0;
+	int success = 1;
+	while (s->ll.head != NULL) {
+		val1 = pop(s);
+		val2 = pop(s);
+		push(&tempStack, val1);
+		push(&tempStack, val2);
+		if (abs(val1 - val2) != 1) {
+			success = 0;
+		}
+		if (!success) {
+			while (s->ll.size > 0) {
+				push(&tempStack, pop(s));
+			}
+		}
+	}
+	while (tempStack.ll.size > 0) {
+		push(s, pop(&tempStack));
+	}
+
+	return success;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -111,7 +111,13 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+	while (s->ll.size > 0) {
+		const int tmp = pop(s);
+		if (tmp == value) {
+			push(s, tmp);
+			break;
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////

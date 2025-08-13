@@ -108,10 +108,9 @@ void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, Linke
 	ListNode *cur = ll->head;
 	resultFrontList->head = cur;
 	resultFrontList->size = mid;
-	for (int i = 1; i < mid; i++)
-	{
+	for (int i = 1; i < mid; i++){
 		cur = cur->next;
-	}
+	} // 1 2 3 |  4 5
 	ListNode *temp = cur;
 	temp = temp->next;
 	cur->next = NULL;
